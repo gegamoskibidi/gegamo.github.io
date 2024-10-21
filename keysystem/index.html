@@ -31,25 +31,29 @@
         const pastebinUrl = "https://pastebin.com/raw/pR8dnmCi";
 
         async function getKey() {
-            document.querySelector("#keyMessage").style.display = "none"; // Hide the key message initially
+            // Hide the key message initially
+            document.querySelector("#keyMessage").style.display = "none";
 
-            // Redirect to Discord first
+            // Redirect the user to the Discord server
             window.location.href = "https://discord.gg/PGsrHqJzm7";
 
-            // Wait for 10 seconds (simulating a delay)
+            // Wait for 10 seconds (while the user is redirected)
             setTimeout(async function () {
                 try {
-                    // Fetch the Pastebin raw text
+                    // Fetch the raw text from Pastebin
                     let response = await fetch(pastebinUrl);
                     let text = await response.text();
-                    
-                    // Split the text by line to get individual keys
+
+                    // Split the text by newlines to get an array of keys
                     let keys = text.split("\n");
 
-                    // Pick a random key from the keys
+                    // Remove empty lines
+                    keys = keys.filter(key => key.trim() !== "");
+
+                    // Select a random key from the array
                     const randomKey = keys[Math.floor(Math.random() * keys.length)];
 
-                    // Display the key
+                    // Display the key to the user
                     document.querySelector("#keyMessage").innerHTML = "Your key: " + randomKey;
                     document.querySelector("#keyMessage").style.display = "block";
                 } catch (error) {
@@ -57,7 +61,7 @@
                     document.querySelector("#keyMessage").innerHTML = "Failed to fetch keys.";
                     document.querySelector("#keyMessage").style.display = "block";
                 }
-            }, 10); // Wait 10 seconds
+            }, 1000); // Wait for 10 seconds before showing the key
         }
     </script>
 </body>
