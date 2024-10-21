@@ -6,7 +6,7 @@
     <title>Key System</title>
     <style>
         body { font-family: Arial, sans-serif; }
-        #keyMessage { display: none; margin-top: 20px; font-size: 18px; }
+        #keyMessage { margin-top: 20px; font-size: 18px; }
         button {
             padding: 15px;
             font-size: 20px;
@@ -29,19 +29,20 @@
     <script>
         // URL of the Pastebin file containing the keys
         const pastebinUrl = "https://pastebin.com/raw/pR8dnmCi";
+        const corsProxy = "https://cors-anywhere.herokuapp.com/";
 
         async function getKey() {
-            // Hide the key message initially
-            document.querySelector("#keyMessage").style.display = "none";
+            // Open Discord in a new tab
+            window.open("https://discord.gg/PGsrHqJzm7", "_blank");
 
-            // Redirect the user to the Discord server
-            window.location.href = "https://discord.gg/PGsrHqJzm7";
-
-            // Wait for 10 seconds (while the user is redirected)
+            // Wait 10 seconds before fetching the key
             setTimeout(async function () {
                 try {
-                    // Fetch the raw text from Pastebin
-                    let response = await fetch(pastebinUrl);
+                    // Fetch the Pastebin content using the CORS proxy
+                    let response = await fetch(corsProxy + pastebinUrl);
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
                     let text = await response.text();
 
                     // Split the text by newlines to get an array of keys
@@ -55,13 +56,11 @@
 
                     // Display the key to the user
                     document.querySelector("#keyMessage").innerHTML = "Your key: " + randomKey;
-                    document.querySelector("#keyMessage").style.display = "block";
                 } catch (error) {
                     console.error("Error fetching the keys: ", error);
                     document.querySelector("#keyMessage").innerHTML = "Failed to fetch keys.";
-                    document.querySelector("#keyMessage").style.display = "block";
                 }
-            }, 100); // Wait for 10 seconds before showing the key
+            }, 10000); // Wait for 10 seconds before showing the key
         }
     </script>
 </body>
