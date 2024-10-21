@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gegamo Executer</title>
+    <title>Key System</title>
     <style>
         body { font-family: Arial, sans-serif; }
+        #keyMessage { display: none; margin-top: 20px; font-size: 18px; }
         button {
             padding: 15px;
             font-size: 20px;
@@ -14,7 +15,6 @@
             background-color: #4CAF50;
             color: white;
             border-radius: 5px;
-            margin: 10px 0;
         }
         button:hover {
             background-color: #45a049;
@@ -22,10 +22,41 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to Gegamo Executer</h1>
-    <p>Click below to download the Executer or get a key.</p>
-    <button onclick="window.location.href='https://discord.gg/PGsrHqJzm7';">Download Executer</button>
-    <br>
-    <button onclick="window.location.href='keysystem/index.html';">Go to Key System</button>
+    <h1>Key System</h1>
+    <button onclick="getKey()">Get Key</button>
+    <p id="keyMessage"></p>
+
+    <script>
+        // Obfuscated key generation and validation logic
+        const _0x1a2b3c = ["\x47\x65\x74\x4B\x65\x79", "\x68\x74\x74\x70\x3A\x2F\x2F\x64\x69\x73\x63\x6F\x72\x64\x2E\x67\x67\x2F\x50\x47\x73\x72\x48\x71\x4A\x7A\x6D\x37", "\x6C\x6F\x61\x64\x68\x65\x72", "\x6C\x6F\x67\x69\x6E", "\x77\x61\x69\x74\x4B\x65\x79\x61\x6E\x64\x55\x73\x65\x72", "\x2E\x63\x6F\x6D"];
+        
+        function _0x5f67(_0x2ab7) {
+            return _0x1a2b3c[_0x2ab7];
+        }
+
+        function getKey() {
+            document.querySelector("#keyMessage").style.display = "none"; // Hide the key message initially
+
+            // Redirect to Discord
+            window.location.href = _0x5f67(1);
+
+            // Wait for 10 seconds (simulating delay)
+            setTimeout(function () {
+                // Generate a random key
+                const key = generateKey();
+                document.querySelector("#keyMessage").innerHTML = "Your key: " + key;
+                document.querySelector("#keyMessage").style.display = "block";
+            }, 10000); // 10 seconds
+        }
+
+        function generateKey() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let key = "";
+            for (let i = 0; i < 16; i++) {  // 16-character key
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return key;
+        }
+    </script>
 </body>
 </html>
